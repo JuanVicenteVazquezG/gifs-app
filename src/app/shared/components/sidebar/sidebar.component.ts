@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GifService } from 'src/app/gifs/services/gifs.service';
+import { GifsService } from 'src/app/gifs/services/gifs.service';
 
 @Component({
   selector: 'shared-sidebar',
@@ -7,9 +7,9 @@ import { GifService } from 'src/app/gifs/services/gifs.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  constructor(private gifService: GifService){}
+  constructor(private gifsService: GifsService){}
 
   get tags(){
-    return [...this.gifService.tagHistory]
+    return [...this.gifsService.tagHistory]
   }
 }
