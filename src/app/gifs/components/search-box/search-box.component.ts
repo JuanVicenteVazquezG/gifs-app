@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { GifsService } from '../../services/gifs.service';
+import { GifService } from '../../services/gifs.service';
 
 @Component({
   selector: 'gifs-search-box',
@@ -7,7 +7,7 @@ import { GifsService } from '../../services/gifs.service';
 })
 
 export class SearchBoxComponent  {
-  constructor(public gifService: GifsService) { }
+  constructor(public gifService: GifService) { }
 
   @ViewChild('txtTagInput')
   public tagInput!: ElementRef<HTMLInputElement>
