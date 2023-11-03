@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Gif, SearchResponse } from '../interfaces/gifs.interfaces';
 
 @Injectable({ providedIn: 'root' })
-export class GifsService {
+export class GifsService{
 
   public gifList: Gif[] = []
 
@@ -27,6 +27,7 @@ export class GifsService {
     this.organizeHistory( tag );
     this._tagsHistory.unshift( tag );
     this._tagsHistory.splice(10)
+    this.saveLocalStorage()
 
     const url = `${this.serviceUrl}/search`;
     const params = new HttpParams()
@@ -45,7 +46,21 @@ export class GifsService {
     this.tagHistory = [...this.tagHistory.filter(( tagName )=> tagName.toLowerCase() != tag)]
   }
 
-  constructor( private http: HttpClient) { }
+  private saveLocalStorage():void{
+    localStorage.setItem('history', JSON.stringify( this.tagHistory ))
+  }
+
+  private loadLocalStorage():void {
+    if (!localStorage.getItem('history')) return
+    this.tagHistory = JSON.parse(localStorage.getItem('history')!)
+  }
+
+  constructor( private http: HttpClient) {
+     this.loadLocalStorage()
+     if (this.tagHistory.length > 0){
+      this.searchTag(this.tagHistory[0])
+     }
+   }
 
 
 }
